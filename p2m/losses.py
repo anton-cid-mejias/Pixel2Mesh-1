@@ -23,6 +23,7 @@ def laplace_coord(pred, placeholders, block_id):
 	weights = tf.cast(placeholders['lape_idx'][block_id-1][:,-1], tf.float32)
 
 	weights = tf.tile(tf.reshape(tf.reciprocal(weights), [-1,1]), [1,3])
+	print(indices)
 	laplace = tf.reduce_sum(tf.gather(vertex, indices), 1)
 	laplace = tf.subtract(pred, tf.multiply(laplace, weights))
 	return laplace
