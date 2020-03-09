@@ -10,7 +10,7 @@ tf_approxmatch_so.so: tf_approxmatch_g.cu.o tf_approxmatch.cpp
 
 
 tf_approxmatch_g.cu.o: tf_approxmatch_g.cu
-	$(nvcc) -D_GLIBCXX_USE_CXX11_ABI=0 -std=c++11 -c -o tf_approxmatch_g.cu.o tf_approxmatch_g.cu -I $(tensorflow) -DGOOGLE_CUDA=1 -x cu -Xcompiler -fPIC -O2
+	$(nvcc) -std=c++11 -c -o tf_approxmatch_g.cu.o tf_approxmatch_g.cu -I $(tensorflow) -DGOOGLE_CUDA=1 -x cu -Xcompiler -fPIC -O2
 
 
 tf_nndistance_so.so: tf_nndistance_g.cu.o tf_nndistance.cpp
