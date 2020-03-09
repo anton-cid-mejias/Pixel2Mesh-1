@@ -49,7 +49,6 @@ class DataFetcher(threading.Thread):
 		filename = self.file_names[idx]
 		image_path = os.path.join(self.data_dir, filename)
 		pts = pd.read_csv(image_path.replace('.png', '.xyz')).to_numpy().astype(np.float32)
-		pts[:, 3] -= np.array([0.0, 0.0, 0.8])
 		img = io.imread(image_path)
 		img[np.where(img[:, :, 3] == 0)] = 255
 		img = transform.resize(img, (224, 224))
@@ -59,7 +58,9 @@ class DataFetcher(threading.Thread):
 	
 	def run(self):
 		while self.index < 90000000 and not self.stopped:
-			self.queue.put(self.work(self.index % self.number))
+			img, pts, filename = self.work(self.index % self.number)
+			pts[:, :3] -= np.array([0.0, 0.0, 0.8])
+			self.queue.put(img, pts, filename)
 			self.index += 1
 			if self.index % self.number == 0:
 				np.random.shuffle(self.file_names)
