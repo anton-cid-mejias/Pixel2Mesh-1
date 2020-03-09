@@ -49,6 +49,7 @@ class DataFetcher(threading.Thread):
 		filename = self.file_names[idx]
 		image_path = os.path.join(self.data_dir, filename)
 		pts = pd.read_csv(image_path.replace('.png', '.xyz')).to_numpy().astype(np.float32)
+		pts[:3] -= np.array([0.0, 0.0, 0.8])
 		img = io.imread(image_path)
 		img[np.where(img[:, :, 3] == 0)] = 255
 		img = transform.resize(img, (224, 224))
