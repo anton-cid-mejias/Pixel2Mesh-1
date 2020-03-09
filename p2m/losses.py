@@ -18,8 +18,8 @@ import tensorflow as tf
 from chamfer import *
 
 def laplace_coord(pred, placeholders, block_id):
-	print("pred:", pred)
-	print("placeholders:", placeholders)
+	print("pred:", pred.shape)
+	print("placeholders:", placeholders.shape)
 	print("blockid:", block_id)
 
 	vertex = tf.concat([pred, tf.zeros([1,3])], 0)
