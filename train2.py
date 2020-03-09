@@ -64,7 +64,7 @@ config=tf.ConfigProto()
 config.allow_soft_placement=True
 sess = tf.Session(config=config)
 sess.run(tf.global_variables_initializer())
-model.load(sess)
+#model.load(sess)
 
 # Train graph model
 train_loss = open('record_train_loss.txt', 'a')
