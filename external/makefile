@@ -1,7 +1,7 @@
 nvcc = /usr/local/cuda-10.0/bin/nvcc
 cudalib = /usr/local/cuda-10.0/lib64
 tensorflow = /usr/local/lib/python2.7/dist-packages/tensorflow_core/include#/home/wnylol/tools/anaconda2/envs/tensorflow/lib/python2.7/site-packages/tensorflow/include
-TF_LIB =/usr/local/lib/python2.7/dist-packages/tensorflow
+TF_LIB =/usr/local/lib/python2.7/dist-packages/tensorflow_core
 
 all: tf_approxmatch_so.so tf_approxmatch_g.cu.o tf_nndistance_so.so tf_nndistance_g.cu.o
 
