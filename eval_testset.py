@@ -27,7 +27,7 @@ flags = tf.app.flags
 FLAGS = flags.FLAGS
 flags.DEFINE_string('data_list', 'Data/test_list.txt', 'Data list path.')
 flags.DEFINE_float('learning_rate', 3e-5, 'Initial learning rate.')
-flags.DEFINE_integer('hidden', 192, 'Number of units in  hidden layer.')
+flags.DEFINE_integer('hidden', 256, 'Number of units in  hidden layer.')
 flags.DEFINE_integer('feat_dim', 963, 'Number of units in perceptual feature layer.')
 flags.DEFINE_integer('coord_dim', 3, 'Number of units in output layer.') 
 flags.DEFINE_float('weight_decay', 5e-6, 'Weight decay for L2 loss.')
