@@ -30,6 +30,11 @@ def project(img_feat, x, y, dim):
     x2 = tf.minimum(tf.ceil(x), tf.cast(tf.shape(img_feat)[0], tf.float32) - 1)
     y1 = tf.floor(y)
     #y2 = tf.ceil(y)
+
+    # add a padding to img_feat
+    paddings = tf.constant([[0, 1], [0, 1], [0, 0]])
+    img_feat = tf.pad(img_feat, paddings, 'CONSTANT')
+
     y2 = tf.minimum(tf.ceil(y), tf.cast(tf.shape(img_feat)[1], tf.float32) - 1)
     Q11 = tf.gather_nd(img_feat, tf.stack([tf.cast(x1,tf.int32), tf.cast(y1,tf.int32)],1))
     Q12 = tf.gather_nd(img_feat, tf.stack([tf.cast(x1,tf.int32), tf.cast(y2,tf.int32)],1))
