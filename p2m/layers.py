@@ -25,31 +25,31 @@ FLAGS = flags.FLAGS
 _LAYER_UIDS = {}
 
 def project(img_feat, x, y, dim):
-	x1 = tf.floor(x)
-	#x2 = tf.ceil(x)
+    x1 = tf.floor(x)
+    #x2 = tf.ceil(x)
     x2 = tf.minimum(tf.ceil(x), tf.cast(tf.shape(img_feat)[0], tf.float32) - 1)
-	y1 = tf.floor(y)
-	#y2 = tf.ceil(y)
+    y1 = tf.floor(y)
+    #y2 = tf.ceil(y)
     y2 = tf.minimum(tf.ceil(y), tf.cast(tf.shape(img_feat)[1], tf.float32) - 1)
-	Q11 = tf.gather_nd(img_feat, tf.stack([tf.cast(x1,tf.int32), tf.cast(y1,tf.int32)],1))
-	Q12 = tf.gather_nd(img_feat, tf.stack([tf.cast(x1,tf.int32), tf.cast(y2,tf.int32)],1))
-	Q21 = tf.gather_nd(img_feat, tf.stack([tf.cast(x2,tf.int32), tf.cast(y1,tf.int32)],1))
-	Q22 = tf.gather_nd(img_feat, tf.stack([tf.cast(x2,tf.int32), tf.cast(y2,tf.int32)],1))
+    Q11 = tf.gather_nd(img_feat, tf.stack([tf.cast(x1,tf.int32), tf.cast(y1,tf.int32)],1))
+    Q12 = tf.gather_nd(img_feat, tf.stack([tf.cast(x1,tf.int32), tf.cast(y2,tf.int32)],1))
+    Q21 = tf.gather_nd(img_feat, tf.stack([tf.cast(x2,tf.int32), tf.cast(y1,tf.int32)],1))
+    Q22 = tf.gather_nd(img_feat, tf.stack([tf.cast(x2,tf.int32), tf.cast(y2,tf.int32)],1))
 
-	weights = tf.multiply(tf.subtract(x2,x), tf.subtract(y2,y))
-	Q11 = tf.multiply(tf.tile(tf.reshape(weights,[-1,1]),[1,dim]), Q11)
+    weights = tf.multiply(tf.subtract(x2,x), tf.subtract(y2,y))
+    Q11 = tf.multiply(tf.tile(tf.reshape(weights,[-1,1]),[1,dim]), Q11)
 
-	weights = tf.multiply(tf.subtract(x,x1), tf.subtract(y2,y))
-	Q21 = tf.multiply(tf.tile(tf.reshape(weights,[-1,1]),[1,dim]), Q21)
+    weights = tf.multiply(tf.subtract(x,x1), tf.subtract(y2,y))
+    Q21 = tf.multiply(tf.tile(tf.reshape(weights,[-1,1]),[1,dim]), Q21)
 
-	weights = tf.multiply(tf.subtract(x2,x), tf.subtract(y,y1))
-	Q12 = tf.multiply(tf.tile(tf.reshape(weights,[-1,1]),[1,dim]), Q12)
+    weights = tf.multiply(tf.subtract(x2,x), tf.subtract(y,y1))
+    Q12 = tf.multiply(tf.tile(tf.reshape(weights,[-1,1]),[1,dim]), Q12)
 
-	weights = tf.multiply(tf.subtract(x,x1), tf.subtract(y,y1))
-	Q22 = tf.multiply(tf.tile(tf.reshape(weights,[-1,1]),[1,dim]), Q22)
+    weights = tf.multiply(tf.subtract(x,x1), tf.subtract(y,y1))
+    Q22 = tf.multiply(tf.tile(tf.reshape(weights,[-1,1]),[1,dim]), Q22)
 
-	outputs = tf.add_n([Q11, Q21, Q12, Q22])
-	return outputs
+    outputs = tf.add_n([Q11, Q21, Q12, Q22])
+    return outputs
 
 def get_layer_uid(layer_name=''):
     """Helper function, assigns unique layer IDs."""
