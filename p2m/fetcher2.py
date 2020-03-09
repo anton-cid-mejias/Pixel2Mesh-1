@@ -60,7 +60,7 @@ class DataFetcher(threading.Thread):
 		while self.index < 90000000 and not self.stopped:
 			img, pts, filename = self.work(self.index % self.number)
 			pts[:, :3] -= np.array([0.0, 0.0, 0.8])
-			self.queue.put(img, pts, filename)
+			self.queue.put((img, pts, filename))
 			self.index += 1
 			if self.index % self.number == 0:
 				np.random.shuffle(self.file_names)
