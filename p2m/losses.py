@@ -19,7 +19,7 @@ from chamfer import *
 
 def laplace_coord(pred, placeholders, block_id):
 	print("pred:", pred.shape)
-	print("placeholders:", placeholders.shape)
+	print("placeholders:", placeholders)
 	print("blockid:", block_id)
 
 	vertex = tf.concat([pred, tf.zeros([1,3])], 0)
