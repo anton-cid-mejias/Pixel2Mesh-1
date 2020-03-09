@@ -18,13 +18,15 @@ import tensorflow as tf
 from chamfer import *
 
 def laplace_coord(pred, placeholders, block_id):
+	print("pred:", pred)
+	print("placeholders:", placeholders)
+	print("blockid:", block_id)
+
 	vertex = tf.concat([pred, tf.zeros([1,3])], 0)
 	indices = placeholders['lape_idx'][block_id-1][:, :8]
 	weights = tf.cast(placeholders['lape_idx'][block_id-1][:,-1], tf.float32)
 
 	weights = tf.tile(tf.reshape(tf.reciprocal(weights), [-1,1]), [1,3])
-	print("laplace_coord")
-	print(indices)
 	laplace = tf.reduce_sum(tf.gather(vertex, indices), 1)
 	laplace = tf.subtract(pred, tf.multiply(laplace, weights))
 	return laplace

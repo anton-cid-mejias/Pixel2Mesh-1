@@ -53,8 +53,6 @@ class DataFetcher(threading.Thread):
 		img[np.where(img[:, :, 3] == 0)] = 255
 		img = transform.resize(img, (224, 224))
 		img = img[:, :, :3].astype('float32')
-		print(filename)
-		print(pts.shape)
 
 		return img, pts, filename
 	
@@ -70,7 +68,6 @@ class DataFetcher(threading.Thread):
 	def fetch(self):
 		if self.stopped:
 			return None
-		print("Fetching...")
 		return self.queue.get()
 	
 	def shutdown(self):
