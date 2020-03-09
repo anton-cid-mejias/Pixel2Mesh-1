@@ -70,6 +70,7 @@ class DataFetcher(threading.Thread):
 	def fetch(self):
 		if self.stopped:
 			return None
+		print("Fetching...")
 		return self.queue.get()
 	
 	def shutdown(self):
